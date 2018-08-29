@@ -42,4 +42,21 @@ public class UserServiceImpl implements UserService{
 	
 	}
 
+	@Override
+	public UserInfo getUserProfile(String userId) throws UberizationSystemException {
+		final String METHOD_NAME="getUserProfile";
+		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
+		try {
+			UserInfo user = new UserInfo();
+			user.setFirstName("Sujay");
+			user.setLastName("Anakkathil");
+			user.setEmail("sujaysudeep93@gmail.com");
+			user.setContactNumber("+918983089016");
+			return user;
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+	}
+
 }

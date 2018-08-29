@@ -15,4 +15,5 @@ public interface UserService {
 	 * @throws UberizationSystemException 
 	 */
 	Boolean registerUser(final UserInfo userinfo) throws UberizationSystemException;
+	UserInfo getUserProfile(final String userId) throws UberizationSystemException;
 }
