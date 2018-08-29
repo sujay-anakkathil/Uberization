@@ -1,5 +1,6 @@
 package com.principal.uberization.userInfo.service;
 
+import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.userInfo.vo.UserInfo;
 
 /**
@@ -11,6 +12,7 @@ public interface UserService {
 	 * @param userinfo
 	 * @return
 	 * This method is used to register user
+	 * @throws UberizationSystemException 
 	 */
-	UserInfo registerUser(final UserInfo userinfo);
+	Boolean registerUser(final UserInfo userinfo) throws UberizationSystemException;
 }

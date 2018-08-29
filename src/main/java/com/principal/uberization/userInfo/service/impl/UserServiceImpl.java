@@ -1,8 +1,14 @@
 package com.principal.uberization.userInfo.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.userInfo.service.UserService;
+import com.principal.uberization.userInfo.validator.UserServiceValidator;
 import com.principal.uberization.userInfo.vo.UserInfo;
 
 /**
@@ -12,15 +18,28 @@ import com.principal.uberization.userInfo.vo.UserInfo;
 
 @Service
 public class UserServiceImpl implements UserService{
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+	
 	/**
 	 * @param userinfo
 	 * @return
 	 * This method is used to register user
+	 * @throws UberizationSystemException 
 	 */
 	@Override
-	public UserInfo registerUser(UserInfo userinfo) {
-		// TODO Auto-generated method stub
-		return new UserInfo();
+	public Boolean registerUser(UserInfo userinfo) throws UberizationSystemException {
+
+		final String METHOD_NAME="registerUser";
+		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
+		try {
+			return true;
+			
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+	
 	}
 
 }
