@@ -53,13 +53,13 @@ public class AppController {
 	
 	@RequestMapping(method=RequestMethod.POST,value="/registrateUser",consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Boolean> registerUser(@RequestBody final UserInfo userInfo) throws UberizationSystemException {
+	public ResponseEntity<UserInfo> registerUser(@RequestBody final UserInfo userInfo) throws UberizationSystemException {
 		final String METHOD_NAME="registerUser";
 		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
 		try {
 			UserServiceValidator.validteUser(userInfo);
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
-			return new ResponseEntity<Boolean>(userService.registerUser(userInfo), HttpStatus.OK);
+			return new ResponseEntity<>(userService.registerUser(userInfo), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);
