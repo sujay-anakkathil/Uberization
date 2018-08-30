@@ -72,7 +72,7 @@ public class AppController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/userprofile/{userID:.+}",consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.GET,value="/userprofile/{userID:.+}",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<UserInfoVO> getUserProfile(@PathVariable final String userID) throws UberizationSystemException {
 		final String METHOD_NAME="authenticateUser";

@@ -1,6 +1,5 @@
 package com.principal.uberization.userInfo.repo;
 
-import com.principal.uberization.Login.VO.LoginVO;
 import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.userInfo.model.UserCredentials;
 
