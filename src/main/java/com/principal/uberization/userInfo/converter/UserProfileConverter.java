@@ -8,9 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.principal.uberization.exception.UberizationSystemException;
+import com.principal.uberization.userInfo.enums.SkillEnum;
+import com.principal.uberization.userInfo.enums.UserTypeEnum;
 import com.principal.uberization.userInfo.model.Skill;
 import com.principal.uberization.userInfo.model.UserCredentials;
-import com.principal.uberization.userInfo.vo.SkillSetVO;
 import com.principal.uberization.userInfo.vo.UserInfoVO;
 
 /**
@@ -36,17 +37,19 @@ public class UserProfileConverter {
 					userInfo.setContactNumber(userCredentials.getUserProfile().getPhone());
 					userInfo.setFirstName(userCredentials.getUserProfile().getFirstName());
 					userInfo.setLastName(userCredentials.getUserProfile().getLastName());
-
+					if (null != userCredentials.getUserType()) {
+						if (UserTypeEnum.getNamesMap().containsKey(userCredentials.getUserType().getUserTypeText())) {
+							userInfo.setUserType(UserTypeEnum.getNamesMap().get(userCredentials.getUserType().getUserTypeText()));
+						}
+					}
+					
 					if (null != userCredentials.getUserProfile().getSkillSet()
 							&& !userCredentials.getUserProfile().getSkillSet().isEmpty()) {
-						final List<SkillSetVO> skillList = new ArrayList<>();
-						SkillSetVO skillSetVO = null;
+						final List<SkillEnum> skillList = new ArrayList<>();
 						for (final Skill skill : userCredentials.getUserProfile().getSkillSet()) {
-							skillSetVO = new SkillSetVO();
-							skillSetVO.setDescription(skill.getSkillDesc());
-							skillSetVO.setId(skill.getSkillId());
-							skillSetVO.setName(skill.getSkillName());
-							skillList.add(skillSetVO);
+							if (SkillEnum.getNamesMap().containsKey(skill.getSkillName())) {
+								skillList.add(SkillEnum.getNamesMap().get(skill.getSkillName()));
+							}
 						}
 						userInfo.setSkillSet(skillList);
 					}
@@ -63,4 +66,5 @@ public class UserProfileConverter {
 		}
 
 	}
+
 }

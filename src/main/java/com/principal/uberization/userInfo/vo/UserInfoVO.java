@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.principal.uberization.userInfo.enums.SkillEnum;
+import com.principal.uberization.userInfo.enums.UserTypeEnum;
+
 public class UserInfoVO {
 	private String email;
 	private String password;
@@ -11,7 +14,8 @@ public class UserInfoVO {
 	private String lastName;
 	private String contactNumber;
 	private MultipartFile resume;
-	private List<SkillSetVO> skillSet;
+	private UserTypeEnum userType;
+	private List<SkillEnum> skillSet;
 	public String getEmail() {
 		return email;
 	}
@@ -48,11 +52,18 @@ public class UserInfoVO {
 	public void setResume(MultipartFile resume) {
 		this.resume = resume;
 	}
-	public List<SkillSetVO> getSkillSet() {
+	public UserTypeEnum getUserType() {
+		return userType;
+	}
+	public void setUserType(UserTypeEnum userType) {
+		this.userType = userType;
+	}
+	public List<SkillEnum> getSkillSet() {
 		return skillSet;
 	}
-	public void setSkillSet(List<SkillSetVO> skillSet) {
+	public void setSkillSet(List<SkillEnum> skillSet) {
 		this.skillSet = skillSet;
 	}
+	
 	
 }

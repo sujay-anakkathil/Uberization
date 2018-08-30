@@ -1,6 +1,9 @@
 package com.principal.uberization.userInfo.service.impl;
 
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,7 +16,13 @@ import com.principal.uberization.exception.UberizationBusinessException;
 import com.principal.uberization.exception.UberizationExceptionInfo;
 import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.userInfo.converter.UserProfileConverter;
+import com.principal.uberization.userInfo.enums.SkillEnum;
+import com.principal.uberization.userInfo.enums.UserTypeEnum;
+import com.principal.uberization.userInfo.model.Skill;
+import com.principal.uberization.userInfo.model.UserCredentialPk;
 import com.principal.uberization.userInfo.model.UserCredentials;
+import com.principal.uberization.userInfo.model.UserProfile;
+import com.principal.uberization.userInfo.model.UserType;
 import com.principal.uberization.userInfo.repo.UserInfoRepo;
 import com.principal.uberization.userInfo.service.UserService;
 import com.principal.uberization.userInfo.vo.UserInfoVO;
@@ -44,6 +53,43 @@ public class UserServiceImpl implements UserService {
 		final String METHOD_NAME = "registerUser";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
+			if (null != userinfo) {
+				final UserProfile userProfile = new UserProfile();
+				userProfile.setFirstName(userinfo.getFirstName());
+				userProfile.setLastName(userinfo.getLastName());
+				userProfile.setPhone(userinfo.getContactNumber());
+				final Set<Skill> skillset = new HashSet<>();
+				for (SkillEnum skillenum : userinfo.getSkillSet()) {
+					Skill skill = new Skill(skillenum.getId(), skillenum.getName(), skillenum.getDescription());
+					skillset.add(skill);
+				}
+				userProfile.setSkillSet(skillset);
+				userProfile.setVerified(false);
+				userProfile.setWorkResume(null);
+				userProfile.setPhotoSrc(null);
+				userProfile.setRating(null);
+				
+				final UserTypeEnum userTypeEnum = userinfo.getUserType();
+				final UserCredentials userCred = new UserCredentials();
+				userCred.setLastLogin(new Date());
+				userCred.setPassword(userinfo.getPassword());
+				userCred.setLastLogin(new Date());
+				userCred.setRegisteredOn(new Date());
+				userCred.setUserType(new UserType(userTypeEnum.getId(), userTypeEnum.getName()));
+				UserCredentialPk id = new UserCredentialPk();
+				id.setUserEmail(userinfo.getEmail());
+				userCred.setId(id);
+				
+				userInfoRepo.registerUser(userProfile, userCred);
+				
+			} else {
+				throw new UberizationBusinessException(
+						Arrays.asList(
+								new ErrorMessage(UberizationExceptionInfo.UBERIZATION_BUSINESS_EXCEPTION.getErrorCode(),
+										"User information not available for Registration",
+										UberizationExceptionInfo.UBERIZATION_BUSINESS_EXCEPTION.getDescription())),
+						"User information not available for Registration");
+			}
 			return true;
 
 		} catch (Exception e) {
@@ -58,17 +104,17 @@ public class UserServiceImpl implements UserService {
 	 * @param userId
 	 * @return
 	 * @throws UberizationSystemException
-	 *             this method is used to get user profile by email
+	 *             This method is used to get user profile by email
 	 */
 	public UserInfoVO getUserProfile(final String userId) throws UberizationSystemException {
 		final String METHOD_NAME = "getUserProfile";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
 			if (StringUtils.isNotEmpty(userId)) {
-				final UserCredentials userCredentials = userInfoRepo.getUserProfile(userId,null);
+				final UserCredentials userCredentials = userInfoRepo.getUserProfile(userId, null);
 				LOGGER.info("Class:" + this.getClass().getName() + " METHOD exit :" + METHOD_NAME);
 				return converter.convertUserProfileToUserInfo(userCredentials);
-			}else {
+			} else {
 				throw new UberizationBusinessException(
 						Arrays.asList(
 								new ErrorMessage(UberizationExceptionInfo.UBERIZATION_BUSINESS_EXCEPTION.getErrorCode(),

@@ -2,6 +2,7 @@ package com.principal.uberization.userInfo.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class UserCredentials {
 	private String password ;
 	
 	@MapsId("userId")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="user_id" ,referencedColumnName="user_id")
 	private UserProfile userProfile;
 	

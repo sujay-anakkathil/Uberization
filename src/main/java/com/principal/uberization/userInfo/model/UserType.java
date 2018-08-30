@@ -12,6 +12,16 @@ import javax.persistence.Table;
 @Table(name = "User_Type_DM",schema="uberization")
 public class UserType {
 
+	public UserType() {
+		super();
+	}
+
+	public UserType(Integer userTypeId, String userTypeText) {
+		super();
+		this.userTypeId = userTypeId;
+		this.userTypeText = userTypeText;
+	}
+
 	@Id
 	@SequenceGenerator(name="pk_sequence",sequenceName="user_type_seq",initialValue = 1, allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")

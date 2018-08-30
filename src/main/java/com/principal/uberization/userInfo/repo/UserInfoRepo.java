@@ -2,6 +2,7 @@ package com.principal.uberization.userInfo.repo;
 
 import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.userInfo.model.UserCredentials;
+import com.principal.uberization.userInfo.model.UserProfile;
 
 /**
  * @author Sujay
@@ -17,5 +18,8 @@ public interface UserInfoRepo {
 	 * @throws UberizationSystemException 
 	 */
 	UserCredentials getUserProfile(final String email,final String password) throws UberizationSystemException;
+	void registerUser(final UserProfile userProfile,final UserCredentials userCredentials)throws UberizationSystemException;
+	
+	
 	
 }

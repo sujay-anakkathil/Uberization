@@ -63,6 +63,7 @@ public class AppController {
 		final String METHOD_NAME="registerUser";
 		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
 		try {
+			//TODO: Need to complete the validations for user registrations
 			UserServiceValidator.validteUser(userInfo);
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
 			return new ResponseEntity<>(userService.registerUser(userInfo), HttpStatus.OK);

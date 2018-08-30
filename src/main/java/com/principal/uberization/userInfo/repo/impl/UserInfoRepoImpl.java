@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.principal.uberization.exception.UberizationSystemException;
+import com.principal.uberization.userInfo.model.UserCredentialPk;
 import com.principal.uberization.userInfo.model.UserCredentials;
+import com.principal.uberization.userInfo.model.UserProfile;
 import com.principal.uberization.userInfo.repo.UserInfoRepo;
 
 /**
@@ -48,6 +50,25 @@ public class UserInfoRepoImpl implements UserInfoRepo {
 			LOGGER.info("Class:" + this.getClass().getName() + " METHOD exit :" + METHOD_NAME);
 			return (UserCredentials) criteria.uniqueResult();  
 
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+
+	}
+
+	
+	@Override
+	public void registerUser(final UserProfile userProfile , final UserCredentials userCredentials) throws UberizationSystemException {
+		final String METHOD_NAME = "saveUserCredentials";
+		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
+		try {
+			final Session session = sessionfactory.getCurrentSession();
+			final Integer userID = (Integer) session.save(userProfile);
+			userProfile.setUserId(userID);
+			userCredentials.setUserProfile(userProfile);
+			userCredentials.getId().setUserId(userID);
+			session.saveOrUpdate(userCredentials);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);
