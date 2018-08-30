@@ -2,21 +2,20 @@ package com.principal.uberization.Login.VO;
 
 public class LoginVO {
 
-	private String emailid;
-	private String passwd;
-	public String getEmailid() {
-		return emailid;
+	private String emailId;
+	private String password;
+	public String getEmailId() {
+		return emailId;
 	}
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
-	public String getPasswd() {
-		return passwd;
+	public String getPassword() {
+		return password;
 	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	
 	
 	
 }

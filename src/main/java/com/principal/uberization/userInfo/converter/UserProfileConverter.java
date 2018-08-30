@@ -3,6 +3,7 @@ package com.principal.uberization.userInfo.converter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -37,9 +38,9 @@ public class UserProfileConverter {
 					userInfo.setContactNumber(userCredentials.getUserProfile().getPhone());
 					userInfo.setFirstName(userCredentials.getUserProfile().getFirstName());
 					userInfo.setLastName(userCredentials.getUserProfile().getLastName());
-					if (null != userCredentials.getUserType()) {
-						if (UserTypeEnum.getNamesMap().containsKey(userCredentials.getUserType().getUserTypeText())) {
-							userInfo.setUserType(UserTypeEnum.getNamesMap().get(userCredentials.getUserType().getUserTypeText()));
+					if (null != userCredentials.getUserType() && StringUtils.isNotEmpty(userCredentials.getUserType().getUserTypeText())) {
+						if (UserTypeEnum.getNamesMap().containsKey(StringUtils.lowerCase(userCredentials.getUserType().getUserTypeText()))) {
+							userInfo.setUserType(UserTypeEnum.getNamesMap().get(StringUtils.lowerCase(userCredentials.getUserType().getUserTypeText())));
 						}
 					}
 					
@@ -47,8 +48,8 @@ public class UserProfileConverter {
 							&& !userCredentials.getUserProfile().getSkillSet().isEmpty()) {
 						final List<SkillEnum> skillList = new ArrayList<>();
 						for (final Skill skill : userCredentials.getUserProfile().getSkillSet()) {
-							if (SkillEnum.getNamesMap().containsKey(skill.getSkillName())) {
-								skillList.add(SkillEnum.getNamesMap().get(skill.getSkillName()));
+							if (SkillEnum.getNamesMap().containsKey(skill.getSkillName().toLowerCase())) {
+								skillList.add(SkillEnum.getNamesMap().get(StringUtils.lowerCase(skill.getSkillName())));
 							}
 						}
 						userInfo.setSkillSet(skillList);

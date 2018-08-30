@@ -40,8 +40,8 @@ public class LoginServiceImpl implements LoginService{
 		final String METHOD_NAME = "authenticateUser";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
-			if (null!=loginVO && StringUtils.isNotEmpty(loginVO.getEmailid()) && StringUtils.isNotBlank(loginVO.getPasswd())) {
-				final UserCredentials userCredentials = userInfoRepo.getUserProfile(loginVO.getEmailid(),loginVO.getPasswd());
+			if (null!=loginVO && StringUtils.isNotEmpty(loginVO.getEmailId()) && StringUtils.isNotBlank(loginVO.getPassword())) {
+				final UserCredentials userCredentials = userInfoRepo.getUserProfile(loginVO.getEmailId(),loginVO.getPassword());
 				LOGGER.info("Class:" + this.getClass().getName() + " METHOD exit :" + METHOD_NAME);
 				if(null==userCredentials) {
 					LOGGER.error("Invalid username or password");

@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Job_Completion_Details")
+@Table(name = "Job_Completion_Details",schema = "uberization")
 public class JobCompletionDetails {
 	@EmbeddedId
 	private JobOwnerPK id;

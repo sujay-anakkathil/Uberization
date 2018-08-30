@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import com.principal.uberization.userInfo.model.UserProfile;
 
 @Entity
-@Table(name = "Job_Assignment_Details")
+@Table(name = "job_assignment_details",schema = "uberization")
 public class JobAssignmentDetails {
 
 	@EmbeddedId
