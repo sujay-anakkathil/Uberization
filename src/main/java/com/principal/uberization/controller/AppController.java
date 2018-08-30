@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.principal.uberization.Login.VO.LoginVO;
 import com.principal.uberization.Login.service.LoginService;
+import com.principal.uberization.exception.ErrorMessage;
+import com.principal.uberization.exception.UberizationAuthenticationException;
 import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.userInfo.service.UserService;
 import com.principal.uberization.userInfo.validator.UserServiceValidator;
-import com.principal.uberization.userInfo.vo.UserInfo;
+import com.principal.uberization.userInfo.vo.UserInfoVO;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("/rest")
 public class AppController {
@@ -42,21 +44,22 @@ public class AppController {
 
 	@RequestMapping(method=RequestMethod.POST,value="/authenticateUser",consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<UserInfo> authenticateUser(@RequestBody final LoginVO loginVO) throws UberizationSystemException {
+	public ResponseEntity<?> authenticateUser(@RequestBody final LoginVO loginVO) throws UberizationSystemException {
 		final String METHOD_NAME="authenticateUser";
 		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
 		try {
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
-			return new ResponseEntity<UserInfo>(loginService.authenticateUser(loginVO), HttpStatus.OK);
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
+			return new ResponseEntity<UserInfoVO>(loginService.authenticateUser(loginVO), HttpStatus.OK);
+		}catch(UberizationAuthenticationException e) {
+			return new ResponseEntity<ErrorMessage>(new ErrorMessage(401, "Invalid Username or Password", "AUTHENTICATION_FAILED"),HttpStatus.UNAUTHORIZED);
+		}catch (Exception e) {
 			throw new UberizationSystemException(e.getMessage(), e);
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/registrateUser",consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.POST,value="/registerUser",consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<Boolean> registerUser(@RequestBody final UserInfo userInfo) throws UberizationSystemException {
+	public ResponseEntity<Boolean> registerUser(@RequestBody final UserInfoVO userInfo) throws UberizationSystemException {
 		final String METHOD_NAME="registerUser";
 		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
 		try {
@@ -69,14 +72,14 @@ public class AppController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/userprofile/{userID}",consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.GET,value="/userprofile/{userID:.+}",consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<UserInfo> getUserProfile(@PathVariable final String userID) throws UberizationSystemException {
+	public ResponseEntity<UserInfoVO> getUserProfile(@PathVariable final String userID) throws UberizationSystemException {
 		final String METHOD_NAME="authenticateUser";
 		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
 		try {
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
-			return new ResponseEntity<UserInfo>(userService.getUserProfile(userID), HttpStatus.OK);
+			return new ResponseEntity<UserInfoVO>(userService.getUserProfile(userID), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);

@@ -1,6 +1,6 @@
 package com.principal.uberization.userInfo.vo;
 
-public class SkillSet {
+public class SkillSetVO {
 	private String name;
 	private Integer id;
 	private String description;

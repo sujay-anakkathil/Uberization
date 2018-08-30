@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class UserInfo {
+public class UserInfoVO {
 	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String contactNumber;
 	private MultipartFile resume;
-	private List<SkillSet> skillSet;
+	private List<SkillSetVO> skillSet;
 	public String getEmail() {
 		return email;
 	}
@@ -48,10 +48,10 @@ public class UserInfo {
 	public void setResume(MultipartFile resume) {
 		this.resume = resume;
 	}
-	public List<SkillSet> getSkillSet() {
+	public List<SkillSetVO> getSkillSet() {
 		return skillSet;
 	}
-	public void setSkillSet(List<SkillSet> skillSet) {
+	public void setSkillSet(List<SkillSetVO> skillSet) {
 		this.skillSet = skillSet;
 	}
 	

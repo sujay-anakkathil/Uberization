@@ -12,5 +12,10 @@ public class UberizationSystemException extends Exception{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public UberizationSystemException(String message) {
+		super(message);
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }

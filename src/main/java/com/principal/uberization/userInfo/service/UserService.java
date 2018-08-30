@@ -1,7 +1,7 @@
 package com.principal.uberization.userInfo.service;
 
 import com.principal.uberization.exception.UberizationSystemException;
-import com.principal.uberization.userInfo.vo.UserInfo;
+import com.principal.uberization.userInfo.vo.UserInfoVO;
 
 /**
  * @author Sujay
@@ -14,6 +14,12 @@ public interface UserService {
 	 * This method is used to register user
 	 * @throws UberizationSystemException 
 	 */
-	Boolean registerUser(final UserInfo userinfo) throws UberizationSystemException;
-	UserInfo getUserProfile(final String userId) throws UberizationSystemException;
+	Boolean registerUser(final UserInfoVO userinfo) throws UberizationSystemException;
+	/**
+	 * @param userId
+	 * @return
+	 * @throws UberizationSystemException
+	 * this method is used to get user profile by email
+	 */
+	UserInfoVO getUserProfile(final String userId) throws UberizationSystemException;
 }
