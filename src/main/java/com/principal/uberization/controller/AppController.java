@@ -42,7 +42,8 @@ public class AppController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppController.class);
 	
 	@RequestMapping("/testController")
-	public String index() {
+	public String index() throws UberizationSystemException {
+		jobService.test();
 		return "test spring rest";
 	}
 

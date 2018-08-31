@@ -56,6 +56,18 @@ public class JobServiceImpl implements JobService{
 		}
 		return true;
 	}
+	@Override
+	public void test() throws UberizationSystemException {
+		
+		final String METHOD_NAME = "test";
+		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
+		try {
+			
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+	}
 
 	
 }

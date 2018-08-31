@@ -12,6 +12,10 @@ import org.springframework.stereotype.Repository;
 import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.job.model.JobPostingDetails;
 import com.principal.uberization.job.repo.JobRepo;
+import com.principal.uberization.userInfo.enums.SkillEnum;
+import com.principal.uberization.userInfo.enums.UserTypeEnum;
+import com.principal.uberization.userInfo.model.Skill;
+import com.principal.uberization.userInfo.model.UserType;
 
 /**
  * @author Sujay
@@ -37,6 +41,28 @@ public class JobRepoImpl implements JobRepo{
 			throw new UberizationSystemException(e.getMessage(), e);
 		}
 
+	}
+	@Override
+	public void test() throws UberizationSystemException {
+		final String METHOD_NAME = "test";
+		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
+		try {
+			final Session session = sessionfactory.getCurrentSession();
+			session.save(new Skill(SkillEnum.VISION_CLAIM.getId(), SkillEnum.VISION_CLAIM.getName(), SkillEnum.VISION_CLAIM.getDescription()));
+			session.save(new Skill(SkillEnum.DENTAL_CLAIM.getId(), SkillEnum.DENTAL_CLAIM.getName(), SkillEnum.DENTAL_CLAIM.getDescription()));
+			session.save(new Skill(SkillEnum.MEDICAL_REVIEW.getId(), SkillEnum.MEDICAL_REVIEW.getName(), SkillEnum.MEDICAL_REVIEW.getDescription()));
+			session.save(new Skill(SkillEnum.DATA_ENTRY.getId(), SkillEnum.DATA_ENTRY.getName(), SkillEnum.DATA_ENTRY.getDescription()));
+			session.save(new Skill(SkillEnum.CASE_PROCESSING.getId(), SkillEnum.CASE_PROCESSING.getName(), SkillEnum.CASE_PROCESSING.getDescription()));
+			
+			session.save(new UserType(UserTypeEnum.ADMIN.getId(), UserTypeEnum.ADMIN.getName()));
+			session.save(new UserType(UserTypeEnum.USER.getId(), UserTypeEnum.USER.getName()));
+			
+			
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+		
 	}
 
 	

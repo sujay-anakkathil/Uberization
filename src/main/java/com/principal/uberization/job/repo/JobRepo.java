@@ -14,4 +14,5 @@ public interface JobRepo {
 	 * This method is used to publish Job
 	 */
 	void publishJob(final JobPostingDetails jobPostingDetails)throws UberizationSystemException;
+	void test()throws UberizationSystemException;
 }
