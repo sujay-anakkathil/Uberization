@@ -62,7 +62,7 @@ public class JobServiceImpl implements JobService{
 		final String METHOD_NAME = "test";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
-			
+			jobRepo.test();
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);
