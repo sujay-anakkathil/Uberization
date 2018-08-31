@@ -37,7 +37,7 @@ public enum UserTypeEnum {
     public String toValue() {
         for (Entry<String, UserTypeEnum> entry : namesMap.entrySet()) {
             if (entry.getValue() == this)
-                return entry.getKey();
+                return entry.getValue().getName();
         }
         return null; 
     }

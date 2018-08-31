@@ -17,7 +17,7 @@ public enum SkillEnum {
 	private Integer id;
 	private String description;
 	
-	public static Map<String, SkillEnum> namesMap = new HashMap<String, SkillEnum>(4);
+	public static Map<String, SkillEnum> namesMap = new HashMap<String, SkillEnum>(6);
 
     public static Map<String, SkillEnum> getNamesMap() {
 		return namesMap;
@@ -39,7 +39,7 @@ public enum SkillEnum {
     public String toValue() {
         for (Entry<String, SkillEnum> entry : namesMap.entrySet()) {
             if (entry.getValue() == this)
-                return entry.getKey();
+                return entry.getValue().getName();
         }
         return null; // or fail
     }
