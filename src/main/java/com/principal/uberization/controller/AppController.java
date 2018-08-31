@@ -19,6 +19,8 @@ import com.principal.uberization.Login.service.LoginService;
 import com.principal.uberization.exception.ErrorMessage;
 import com.principal.uberization.exception.UberizationAuthenticationException;
 import com.principal.uberization.exception.UberizationSystemException;
+import com.principal.uberization.job.service.JobService;
+import com.principal.uberization.job.vo.JobDetailsVO;
 import com.principal.uberization.userInfo.service.UserService;
 import com.principal.uberization.userInfo.validator.UserServiceValidator;
 import com.principal.uberization.userInfo.vo.UserInfoVO;
@@ -34,6 +36,8 @@ public class AppController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	JobService jobService;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(AppController.class);
 	
@@ -81,6 +85,20 @@ public class AppController {
 		try {
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
 			return new ResponseEntity<UserInfoVO>(userService.getUserProfile(userID), HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/publishJob",consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<Boolean> publishJob(@RequestBody final JobDetailsVO jobDetailsVO) throws UberizationSystemException {
+		final String METHOD_NAME="registerUser";
+		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
+		try {
+			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
+			return new ResponseEntity<>(jobService.publishJobPosting(jobDetailsVO), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);

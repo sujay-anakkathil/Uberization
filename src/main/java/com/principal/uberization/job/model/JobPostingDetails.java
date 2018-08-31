@@ -1,5 +1,6 @@
 package com.principal.uberization.job.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.principal.uberization.userInfo.model.Skill;
+
 @Entity
 @Table(name = "Job_Posting_Details", schema = "uberization")
 public class JobPostingDetails {
@@ -22,20 +25,20 @@ public class JobPostingDetails {
 	private Integer jobPostingId;
 	
 	@Column(name = "job_date")
-	private Date jobDate;
+	private java.time.LocalDateTime jobDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "work_type_id", referencedColumnName = "work_type_id")
-	private Work workType;
+	@JoinColumn(name = "skill_id", referencedColumnName = "skill_id")
+	private Skill skill;
 	
 	@Column(name = "work_count")
 	private Integer workCount;
 	
 	@Column(name = "job_post_date")
-	private Date jobPostDate;
+	private LocalDateTime jobPostDate;
 	
 	@Column(name = "job_resp_deadline")
-	private Date jobRespDeadline;
+	private LocalDateTime jobRespDeadline;
 
 	public Integer getJobPostingId() {
 		return jobPostingId;
@@ -45,20 +48,21 @@ public class JobPostingDetails {
 		this.jobPostingId = jobPostingId;
 	}
 
-	public Date getJobDate() {
+	public LocalDateTime getJobDate() {
 		return jobDate;
 	}
 
-	public void setJobDate(Date jobDate) {
+	public void setJobDate(LocalDateTime jobDate) {
 		this.jobDate = jobDate;
 	}
 
-	public Work getWorkType() {
-		return workType;
+	
+	public Skill getSkill() {
+		return skill;
 	}
 
-	public void setWorkType(Work workType) {
-		this.workType = workType;
+	public void setSkill(Skill skill) {
+		this.skill = skill;
 	}
 
 	public Integer getWorkCount() {
@@ -69,19 +73,19 @@ public class JobPostingDetails {
 		this.workCount = workCount;
 	}
 
-	public Date getJobPostDate() {
+	public LocalDateTime getJobPostDate() {
 		return jobPostDate;
 	}
 
-	public void setJobPostDate(Date jobPostDate) {
+	public void setJobPostDate(LocalDateTime jobPostDate) {
 		this.jobPostDate = jobPostDate;
 	}
 
-	public Date getJobRespDeadline() {
+	public LocalDateTime getJobRespDeadline() {
 		return jobRespDeadline;
 	}
 
-	public void setJobRespDeadline(Date jobRespDeadline) {
+	public void setJobRespDeadline(LocalDateTime jobRespDeadline) {
 		this.jobRespDeadline = jobRespDeadline;
 	}
 

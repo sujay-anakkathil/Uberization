@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 				}
 				userProfile.setSkillSet(skillset);
 				userProfile.setVerified(false);
-				userProfile.setWorkResume(null);
+				userProfile.setWorkResume(userinfo.getResume().getBytes());
 				userProfile.setPhotoSrc(null);
 				userProfile.setRating(null);
 				

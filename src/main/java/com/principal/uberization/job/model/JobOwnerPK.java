@@ -19,8 +19,8 @@ public class JobOwnerPK implements Serializable {
 		return jobPostingId;
 	}
 
-	public void setJobPostingId(Integer jobPpostingId) {
-		this.jobPostingId = jobPostingId;
+	public void setJobPostingId(Integer jobpostingId) {
+		this.jobPostingId = jobpostingId;
 	}
 
 	public Integer getUserId() {
