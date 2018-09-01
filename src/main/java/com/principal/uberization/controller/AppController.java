@@ -43,7 +43,7 @@ public class AppController {
 	
 	@RequestMapping("/testController")
 	public String index() throws UberizationSystemException {
-		//jobService.test();
+		jobService.test();
 		return "test spring rest";
 	}
 

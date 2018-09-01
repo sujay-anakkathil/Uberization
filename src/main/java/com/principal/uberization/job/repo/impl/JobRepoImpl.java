@@ -48,15 +48,14 @@ public class JobRepoImpl implements JobRepo{
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
 			final Session session = sessionfactory.getCurrentSession();
-			session.save(new Skill(SkillEnum.VISION_CLAIM.getId(), SkillEnum.VISION_CLAIM.getName(), SkillEnum.VISION_CLAIM.getDescription()));
+		/*	session.save(new Skill(SkillEnum.VISION_CLAIM.getId(), SkillEnum.VISION_CLAIM.getName(), SkillEnum.VISION_CLAIM.getDescription()));
 			session.save(new Skill(SkillEnum.DENTAL_CLAIM.getId(), SkillEnum.DENTAL_CLAIM.getName(), SkillEnum.DENTAL_CLAIM.getDescription()));
 			session.save(new Skill(SkillEnum.MEDICAL_REVIEW.getId(), SkillEnum.MEDICAL_REVIEW.getName(), SkillEnum.MEDICAL_REVIEW.getDescription()));
 			session.save(new Skill(SkillEnum.DATA_ENTRY.getId(), SkillEnum.DATA_ENTRY.getName(), SkillEnum.DATA_ENTRY.getDescription()));
 			session.save(new Skill(SkillEnum.CASE_PROCESSING.getId(), SkillEnum.CASE_PROCESSING.getName(), SkillEnum.CASE_PROCESSING.getDescription()));
-			
 			session.save(new UserType(UserTypeEnum.ADMIN.getId(), UserTypeEnum.ADMIN.getName()));
-			session.save(new UserType(UserTypeEnum.USER.getId(), UserTypeEnum.USER.getName()));
-			
+			session.save(new UserType(UserTypeEnum.USER.getId(), UserTypeEnum.USER.getName()));*/
+			session.save(new Skill(SkillEnum.DENTAL_CLAIM_STAGING.getId(), SkillEnum.DENTAL_CLAIM_STAGING.getName(), SkillEnum.DENTAL_CLAIM_STAGING.getDescription()));
 			
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
