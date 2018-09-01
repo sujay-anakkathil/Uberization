@@ -29,6 +29,7 @@ public enum SkillEnum {
         namesMap.put(DATA_ENTRY.getName().toLowerCase(), DATA_ENTRY);
         namesMap.put(MEDICAL_REVIEW.getName().toLowerCase(), MEDICAL_REVIEW);
         namesMap.put(CASE_PROCESSING.getName().toLowerCase(), CASE_PROCESSING);
+        namesMap.put(DENTAL_CLAIM_STAGING.getName().toLowerCase(), DENTAL_CLAIM_STAGING);
     }
 
     @JsonCreator
