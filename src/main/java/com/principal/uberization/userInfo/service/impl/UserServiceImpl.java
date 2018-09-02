@@ -59,19 +59,21 @@ public class UserServiceImpl implements UserService {
 				userProfile.setLastName(userinfo.getLastName());
 				userProfile.setPhone(userinfo.getContactNumber());
 				final Set<Skill> skillset = new HashSet<>();
-				for (SkillEnum skillenum : userinfo.getSkillSet()) {
-					Skill skill = new Skill(skillenum.getId(), skillenum.getName(), skillenum.getDescription());
-					skillset.add(skill);
+				if (null != userinfo.getSkillSet() && !userinfo.getSkillSet().isEmpty()) {
+					for (SkillEnum skillenum : userinfo.getSkillSet()) {
+						Skill skill = new Skill(skillenum.getId(), skillenum.getName(), skillenum.getDescription());
+						skillset.add(skill);
+					}
 				}
 				userProfile.setSkillSet(skillset);
 				userProfile.setVerified(false);
-				if(null!=userinfo.getResume()) {
+				if (null != userinfo.getResume()) {
 					userProfile.setWorkResume(userinfo.getResume().getBytes());
 				}
-				
+
 				userProfile.setPhotoSrc(null);
 				userProfile.setRating(null);
-				
+
 				final UserTypeEnum userTypeEnum = userinfo.getUserType();
 				final UserCredentials userCred = new UserCredentials();
 				userCred.setLastLogin(new Date());
@@ -82,9 +84,9 @@ public class UserServiceImpl implements UserService {
 				UserCredentialPk id = new UserCredentialPk();
 				id.setUserEmail(userinfo.getEmail());
 				userCred.setId(id);
-				
+
 				userInfoRepo.registerUser(userProfile, userCred);
-				
+
 			} else {
 				throw new UberizationBusinessException(
 						Arrays.asList(
