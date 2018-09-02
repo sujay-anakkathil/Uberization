@@ -11,7 +11,7 @@ public class JobOwnerPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Column(name = "job_posting_id")
 	private Integer jobPostingId;
-	
+
 	@Column(name = "user_id")
 	private Integer userId;
 
@@ -29,6 +29,16 @@ public class JobOwnerPK implements Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public JobOwnerPK(Integer jobPostingId, Integer userId) {
+		super();
+		this.jobPostingId = jobPostingId;
+		this.userId = userId;
+	}
+
+	public JobOwnerPK() {
+		super();
 	}
 
 	@Override

@@ -10,12 +10,26 @@ import com.principal.uberization.utils.JsonDateSerializer;
 
 public class JobDetailsVO {
 
+	public Integer getJobId() {
+		return jobId;
+	}
+	public void setJobId(Integer jobId) {
+		this.jobId = jobId;
+	}
 	private SkillEnum typeOfWork;
 	private Integer numberOfCases;
+	private Integer jobId;
 	@JsonSerialize(using = JsonDateSerializer.class)
     @JsonDeserialize(using = CustomDateMappingDeserialize.class)
 	private Date dateOfWork;
 	private Integer responseDeadline;
+	private Date responseDeadLineDate;
+	public Date getResponseDeadLineDate() {
+		return responseDeadLineDate;
+	}
+	public void setResponseDeadLineDate(Date responseDeadLineDate) {
+		this.responseDeadLineDate = responseDeadLineDate;
+	}
 	public SkillEnum getTypeOfWork() {
 		return typeOfWork;
 	}

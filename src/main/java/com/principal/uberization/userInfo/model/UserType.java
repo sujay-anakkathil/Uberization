@@ -23,8 +23,6 @@ public class UserType {
 	}
 
 	@Id
-	@SequenceGenerator(name="pk_sequence",sequenceName="user_type_seq",initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
 	@Column(name = "user_type_id")
 	private Integer userTypeId;
 

@@ -19,6 +19,7 @@ public interface UserInfoRepo {
 	 */
 	UserCredentials getUserProfile(final String email,final String password) throws UberizationSystemException;
 	void registerUser(final UserProfile userProfile,final UserCredentials userCredentials)throws UberizationSystemException;
+	UserProfile getUserProfile(final Integer userID)throws UberizationSystemException;
 	
 	
 	

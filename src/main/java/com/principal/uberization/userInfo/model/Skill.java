@@ -12,8 +12,6 @@ import javax.persistence.Table;
 @Table(name = "Skill_DM", schema = "uberization")
 public class Skill {
 	@Id
-	@SequenceGenerator(name = "pk_sequence", sequenceName = "skill_id_seq", initialValue = 1, allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
 	@Column(name = "skill_id")
 	private Integer skillId;
 

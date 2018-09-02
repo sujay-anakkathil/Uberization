@@ -1,5 +1,6 @@
 package com.principal.uberization.job.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,6 +15,22 @@ import com.principal.uberization.userInfo.model.UserProfile;
 @Table(name = "job_assignment_details",schema = "uberization")
 public class JobAssignmentDetails {
 
+	public UserProfile getUser() {
+		return user;
+	}
+
+	public void setUser(UserProfile user) {
+		this.user = user;
+	}
+
+	public JobPostingDetails getJobPostingDetails() {
+		return jobPostingDetails;
+	}
+
+	public void setJobPostingDetails(JobPostingDetails jobPostingDetails) {
+		this.jobPostingDetails = jobPostingDetails;
+	}
+
 	@EmbeddedId
 	private JobOwnerPK id;
 	
@@ -24,12 +41,12 @@ public class JobAssignmentDetails {
 	private Integer assignedCount;
 
 	@MapsId("userId")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="user_id",referencedColumnName="user_id")
 	private UserProfile user;
 	
 	@MapsId("jobPostingId")
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="job_posting_id",referencedColumnName="job_posting_id")
 	private JobPostingDetails jobPostingDetails;
 	

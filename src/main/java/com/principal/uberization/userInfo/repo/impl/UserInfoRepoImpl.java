@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.principal.uberization.exception.UberizationSystemException;
+import com.principal.uberization.job.model.JobPostingDetails;
 import com.principal.uberization.userInfo.model.UserCredentialPk;
 import com.principal.uberization.userInfo.model.UserCredentials;
 import com.principal.uberization.userInfo.model.UserProfile;
@@ -75,5 +76,21 @@ public class UserInfoRepoImpl implements UserInfoRepo {
 		}
 
 	}
+
+
+	@Override
+	public UserProfile getUserProfile(Integer userID) throws UberizationSystemException {
+		final String METHOD_NAME = "getUserProfile";
+		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
+		try {
+			final Session session = sessionfactory.getCurrentSession();
+			return session.get(UserProfile.class, userID);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+	}
+	
+	
 
 }
