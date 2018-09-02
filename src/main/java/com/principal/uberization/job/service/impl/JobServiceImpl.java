@@ -94,7 +94,7 @@ public class JobServiceImpl implements JobService {
 						job.setJobId(task.getJobPostingId());
 						job.setNumberOfCases(task.getWorkCount());
 						job.setResponseDeadLineDate(task.getJobRespDeadline());
-						job.setTypeOfWork(SkillEnum.getNamesMap().get(task.getSkill().getSkillName()));
+						job.setTypeOfWork(SkillEnum.getNamesMap().get(task.getSkill().getSkillName().toLowerCase()));
 						jobDetailsVOList.add(job);
 					}
 				}
