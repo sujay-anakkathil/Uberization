@@ -86,7 +86,7 @@ public class JobRepoImpl implements JobRepo {
 	}
 
 	@Override
-	public List<JobPostingDetails> getTaskList(final List<Integer> skillList) throws UberizationSystemException {
+	public List<JobPostingDetails> getTaskList() throws UberizationSystemException {
 		final String METHOD_NAME = "getTaskList";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {

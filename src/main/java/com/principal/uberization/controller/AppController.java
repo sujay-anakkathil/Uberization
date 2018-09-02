@@ -24,7 +24,6 @@ import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.job.service.JobService;
 import com.principal.uberization.job.vo.JobDetailsVO;
 import com.principal.uberization.job.vo.UserJobResponse;
-import com.principal.uberization.userInfo.enums.SkillEnum;
 import com.principal.uberization.userInfo.service.UserService;
 import com.principal.uberization.userInfo.validator.UserServiceValidator;
 import com.principal.uberization.userInfo.vo.UserInfoVO;
@@ -110,14 +109,14 @@ public class AppController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.POST,value="/getTaskList",produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.GET,value="/getTaskList",produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<JobDetailsVO>> getTaskList(@RequestBody final List<SkillEnum> taskList) throws UberizationSystemException {
+	public ResponseEntity<List<JobDetailsVO>> getTaskList() throws UberizationSystemException {
 		final String METHOD_NAME="getTaskList";
 		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
 		try {
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
-			return new ResponseEntity<List<JobDetailsVO>>(jobService.getTaskList(taskList), HttpStatus.OK);
+			return new ResponseEntity<List<JobDetailsVO>>(jobService.getTaskList(), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);

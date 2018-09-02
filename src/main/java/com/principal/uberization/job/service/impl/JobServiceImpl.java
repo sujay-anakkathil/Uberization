@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +15,6 @@ import com.principal.uberization.exception.ErrorMessage;
 import com.principal.uberization.exception.UberizationBusinessException;
 import com.principal.uberization.exception.UberizationExceptionInfo;
 import com.principal.uberization.exception.UberizationSystemException;
-import com.principal.uberization.job.model.JobAssignmentDetails;
-import com.principal.uberization.job.model.JobOwnerPK;
 import com.principal.uberization.job.model.JobPostingDetails;
 import com.principal.uberization.job.repo.JobRepo;
 import com.principal.uberization.job.service.JobService;
@@ -26,8 +22,6 @@ import com.principal.uberization.job.vo.JobDetailsVO;
 import com.principal.uberization.job.vo.UserJobResponse;
 import com.principal.uberization.userInfo.enums.SkillEnum;
 import com.principal.uberization.userInfo.model.Skill;
-import com.principal.uberization.userInfo.model.UserProfile;
-import com.principal.uberization.userInfo.repo.UserInfoRepo;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -86,16 +80,12 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public List<JobDetailsVO> getTaskList(final List<SkillEnum> skillList) throws UberizationSystemException {
+	public List<JobDetailsVO> getTaskList() throws UberizationSystemException {
 		final String METHOD_NAME = "getTaskList";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
-			if (null != skillList) {
-				final List<Integer> skills = new ArrayList<>();
-				for (SkillEnum skill : skillList) {
-					skills.add(skill.getId());
-				}
-				final List<JobPostingDetails> taskList = jobRepo.getTaskList(skills);
+				
+				final List<JobPostingDetails> taskList = jobRepo.getTaskList();
 				final List<JobDetailsVO> jobDetailsVOList = new ArrayList<>();
 				if (null != taskList && !taskList.isEmpty()) {
 					for (JobPostingDetails task : taskList) {
@@ -109,14 +99,7 @@ public class JobServiceImpl implements JobService {
 					}
 				}
 				return jobDetailsVOList;
-			} else {
-				throw new UberizationBusinessException(
-						Arrays.asList(
-								new ErrorMessage(UberizationExceptionInfo.UBERIZATION_BUSINESS_EXCEPTION.getErrorCode(),
-										"Insufficient parameter",
-										UberizationExceptionInfo.UBERIZATION_BUSINESS_EXCEPTION.getDescription())),
-						"Insufficient parameter");
-			}
+			
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);
