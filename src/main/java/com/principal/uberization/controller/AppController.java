@@ -43,7 +43,7 @@ public class AppController {
 	
 	@RequestMapping("/testController")
 	public String index() throws UberizationSystemException {
-		jobService.test();
+		//jobService.test();
 		return "test spring rest";
 	}
 
@@ -100,6 +100,20 @@ public class AppController {
 		try {
 			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
 			return new ResponseEntity<>(jobService.publishJobPosting(jobDetailsVO), HttpStatus.OK);
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,value="/getTaskList/{userID:.+}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<UserInfoVO> getTaskList(@PathVariable final String userID) throws UberizationSystemException {
+		final String METHOD_NAME="getTaskList";
+		LOGGER.info("Class:"+this.getClass().getName()+" METHOD entry :"+METHOD_NAME);
+		try {
+			LOGGER.info("Class:"+this.getClass().getName()+" METHOD exit :"+METHOD_NAME);
+			return new ResponseEntity<UserInfoVO>(userService.getUserProfile(userID), HttpStatus.OK);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			throw new UberizationSystemException(e.getMessage(), e);

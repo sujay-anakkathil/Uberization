@@ -10,7 +10,7 @@ public class UserCredentialPk implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Column(name="user_id ")
 	private Integer userId;
-	@Column(name="user_email ")
+	@Column(name="user_email ",unique=true)
 	private String userEmail;
 	public Integer getUserId() {
 		return userId;

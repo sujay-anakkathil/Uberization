@@ -1,11 +1,9 @@
 package com.principal.uberization.job.service.impl;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,27 +20,32 @@ import com.principal.uberization.job.vo.JobDetailsVO;
 import com.principal.uberization.userInfo.model.Skill;
 
 @Service
-public class JobServiceImpl implements JobService{
-	
+public class JobServiceImpl implements JobService {
+
 	@Autowired
 	JobRepo jobRepo;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JobServiceImpl.class);
+
 	@Override
-	
+
 	public Boolean publishJobPosting(final JobDetailsVO jobDetailsVO) throws UberizationSystemException {
 		final String METHOD_NAME = "publishJobPosting";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
-			if (null!=jobDetailsVO) {
+			if (null != jobDetailsVO) {
 				final JobPostingDetails jobPostingDetails = new JobPostingDetails();
-				jobPostingDetails.setJobDate(jobDetailsVO.getDateOfWork().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-				jobPostingDetails.setJobPostDate(LocalDateTime.now());
-				jobPostingDetails.setJobRespDeadline(LocalDateTime.now().plusHours(jobDetailsVO.getResponseDeadline()));
-				jobPostingDetails.setSkill(new Skill(jobDetailsVO.getTypeOfWork().getId(), jobDetailsVO.getTypeOfWork().getName(), jobDetailsVO.getTypeOfWork().getDescription()));
+				jobPostingDetails.setJobDate(jobDetailsVO.getDateOfWork());
+				jobPostingDetails.setJobPostDate(new Date());
+				Calendar cal = Calendar.getInstance(); // creates calendar
+				cal.setTime(new Date()); // sets calendar time/date
+				cal.add(Calendar.HOUR_OF_DAY, jobDetailsVO.getResponseDeadline()); // adds one hour
+				jobPostingDetails.setJobRespDeadline(cal.getTime());
+				jobPostingDetails.setSkill(new Skill(jobDetailsVO.getTypeOfWork().getId(),
+				jobDetailsVO.getTypeOfWork().getName(), jobDetailsVO.getTypeOfWork().getDescription()));
 				jobPostingDetails.setWorkCount(jobDetailsVO.getNumberOfCases());
 				jobRepo.publishJob(jobPostingDetails);
-			}else {
+			} else {
 				throw new UberizationBusinessException(
 						Arrays.asList(
 								new ErrorMessage(UberizationExceptionInfo.UBERIZATION_BUSINESS_EXCEPTION.getErrorCode(),
@@ -56,9 +59,10 @@ public class JobServiceImpl implements JobService{
 		}
 		return true;
 	}
+
 	@Override
 	public void test() throws UberizationSystemException {
-		
+
 		final String METHOD_NAME = "test";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
@@ -69,5 +73,4 @@ public class JobServiceImpl implements JobService{
 		}
 	}
 
-	
 }

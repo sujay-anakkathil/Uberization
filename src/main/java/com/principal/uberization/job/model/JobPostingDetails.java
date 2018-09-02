@@ -1,6 +1,5 @@
 package com.principal.uberization.job.model;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.principal.uberization.userInfo.model.Skill;
 
@@ -25,7 +26,8 @@ public class JobPostingDetails {
 	private Integer jobPostingId;
 	
 	@Column(name = "job_date")
-	private java.time.LocalDateTime jobDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date jobDate;
 	
 	@ManyToOne
 	@JoinColumn(name = "skill_id", referencedColumnName = "skill_id")
@@ -35,10 +37,12 @@ public class JobPostingDetails {
 	private Integer workCount;
 	
 	@Column(name = "job_post_date")
-	private LocalDateTime jobPostDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date jobPostDate;
 	
 	@Column(name = "job_resp_deadline")
-	private LocalDateTime jobRespDeadline;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date jobRespDeadline;
 
 	public Integer getJobPostingId() {
 		return jobPostingId;
@@ -48,11 +52,11 @@ public class JobPostingDetails {
 		this.jobPostingId = jobPostingId;
 	}
 
-	public LocalDateTime getJobDate() {
+	public Date getJobDate() {
 		return jobDate;
 	}
 
-	public void setJobDate(LocalDateTime jobDate) {
+	public void setJobDate(Date jobDate) {
 		this.jobDate = jobDate;
 	}
 
@@ -73,19 +77,19 @@ public class JobPostingDetails {
 		this.workCount = workCount;
 	}
 
-	public LocalDateTime getJobPostDate() {
+	public Date getJobPostDate() {
 		return jobPostDate;
 	}
 
-	public void setJobPostDate(LocalDateTime jobPostDate) {
+	public void setJobPostDate(Date jobPostDate) {
 		this.jobPostDate = jobPostDate;
 	}
 
-	public LocalDateTime getJobRespDeadline() {
+	public Date getJobRespDeadline() {
 		return jobRespDeadline;
 	}
 
-	public void setJobRespDeadline(LocalDateTime jobRespDeadline) {
+	public void setJobRespDeadline(Date jobRespDeadline) {
 		this.jobRespDeadline = jobRespDeadline;
 	}
 

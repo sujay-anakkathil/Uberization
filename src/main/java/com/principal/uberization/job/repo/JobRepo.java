@@ -1,5 +1,7 @@
 package com.principal.uberization.job.repo;
 
+import java.util.List;
+
 import com.principal.uberization.exception.UberizationSystemException;
 import com.principal.uberization.job.model.JobPostingDetails;
 
@@ -15,4 +17,5 @@ public interface JobRepo {
 	 */
 	void publishJob(final JobPostingDetails jobPostingDetails)throws UberizationSystemException;
 	void test()throws UberizationSystemException;
+	List<JobPostingDetails> getTaskList(List<String> skillList)throws UberizationSystemException;
 }

@@ -1,9 +1,14 @@
 package com.principal.uberization.job.repo.impl;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,19 +47,21 @@ public class JobRepoImpl implements JobRepo{
 		}
 
 	}
+	
+	
 	@Override
 	public void test() throws UberizationSystemException {
 		final String METHOD_NAME = "test";
 		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
 		try {
 			final Session session = sessionfactory.getCurrentSession();
-		/*	session.save(new Skill(SkillEnum.VISION_CLAIM.getId(), SkillEnum.VISION_CLAIM.getName(), SkillEnum.VISION_CLAIM.getDescription()));
+			session.save(new Skill(SkillEnum.VISION_CLAIM.getId(), SkillEnum.VISION_CLAIM.getName(), SkillEnum.VISION_CLAIM.getDescription()));
 			session.save(new Skill(SkillEnum.DENTAL_CLAIM.getId(), SkillEnum.DENTAL_CLAIM.getName(), SkillEnum.DENTAL_CLAIM.getDescription()));
 			session.save(new Skill(SkillEnum.MEDICAL_REVIEW.getId(), SkillEnum.MEDICAL_REVIEW.getName(), SkillEnum.MEDICAL_REVIEW.getDescription()));
 			session.save(new Skill(SkillEnum.DATA_ENTRY.getId(), SkillEnum.DATA_ENTRY.getName(), SkillEnum.DATA_ENTRY.getDescription()));
 			session.save(new Skill(SkillEnum.CASE_PROCESSING.getId(), SkillEnum.CASE_PROCESSING.getName(), SkillEnum.CASE_PROCESSING.getDescription()));
 			session.save(new UserType(UserTypeEnum.ADMIN.getId(), UserTypeEnum.ADMIN.getName()));
-			session.save(new UserType(UserTypeEnum.USER.getId(), UserTypeEnum.USER.getName()));*/
+			session.save(new UserType(UserTypeEnum.USER.getId(), UserTypeEnum.USER.getName()));
 			session.save(new Skill(SkillEnum.DENTAL_CLAIM_STAGING.getId(), SkillEnum.DENTAL_CLAIM_STAGING.getName(), SkillEnum.DENTAL_CLAIM_STAGING.getDescription()));
 			
 		} catch (Exception e) {
@@ -62,6 +69,23 @@ public class JobRepoImpl implements JobRepo{
 			throw new UberizationSystemException(e.getMessage(), e);
 		}
 		
+	}
+
+
+	@Override
+	public List<JobPostingDetails> getTaskList(List<String> skillList) throws UberizationSystemException {
+		final String METHOD_NAME = "getTaskList";
+		LOGGER.info("Class:" + this.getClass().getName() + " METHOD entry :" + METHOD_NAME);
+		try {
+			final Session session = sessionfactory.getCurrentSession();
+			final Criteria criteria = session.createCriteria(JobPostingDetails.class);
+			criteria.add(Restrictions.in("skill", skillList));
+			criteria.add(Restrictions.gt("jobRespDeadline", new Date()));
+			return criteria.list();
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage(), e);
+			throw new UberizationSystemException(e.getMessage(), e);
+		}
 	}
 
 	

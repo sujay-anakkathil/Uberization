@@ -2,18 +2,18 @@ package com.principal.uberization.job.vo;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.principal.uberization.userInfo.enums.SkillEnum;
+import com.principal.uberization.utils.CustomDateMappingDeserialize;
+import com.principal.uberization.utils.JsonDateSerializer;
 
 public class JobDetailsVO {
 
 	private SkillEnum typeOfWork;
 	private Integer numberOfCases;
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
-	@JsonFormat(pattern = "MM/dd/yyyy")
+	@JsonSerialize(using = JsonDateSerializer.class)
+    @JsonDeserialize(using = CustomDateMappingDeserialize.class)
 	private Date dateOfWork;
 	private Integer responseDeadline;
 	public SkillEnum getTypeOfWork() {
