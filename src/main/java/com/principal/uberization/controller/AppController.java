@@ -109,7 +109,7 @@ public class AppController {
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/getTaskList",produces=MediaType.APPLICATION_JSON_VALUE,consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.GET,value="/getTaskList",produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<JobDetailsVO>> getTaskList() throws UberizationSystemException {
 		final String METHOD_NAME="getTaskList";
