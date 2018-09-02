@@ -10,15 +10,15 @@ import com.principal.uberization.utils.JsonDateSerializer;
 
 public class JobDetailsVO {
 
-	public Integer getJobId() {
-		return jobId;
+	public Integer getJobID() {
+		return jobID;
 	}
-	public void setJobId(Integer jobId) {
-		this.jobId = jobId;
+	public void setJobId(Integer jobID) {
+		this.jobID = jobID;
 	}
 	private SkillEnum typeOfWork;
 	private Integer numberOfCases;
-	private Integer jobId;
+	private Integer jobID;
 	@JsonSerialize(using = JsonDateSerializer.class)
     @JsonDeserialize(using = CustomDateMappingDeserialize.class)
 	private Date dateOfWork;

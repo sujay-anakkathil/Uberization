@@ -38,7 +38,7 @@ public class UserProfileConverter {
 					userInfo.setContactNumber(userCredentials.getUserProfile().getPhone());
 					userInfo.setFirstName(userCredentials.getUserProfile().getFirstName());
 					userInfo.setLastName(userCredentials.getUserProfile().getLastName());
-					userInfo.setIsVerified(userCredentials.getUserProfile().getVerified());
+					userInfo.setIsApproved(userCredentials.getUserProfile().getVerified());
 					if (null != userCredentials.getUserType() && StringUtils.isNotEmpty(userCredentials.getUserType().getUserTypeText())) {
 						if (UserTypeEnum.getNamesMap().containsKey(StringUtils.lowerCase(userCredentials.getUserType().getUserTypeText()))) {
 							userInfo.setUserType(UserTypeEnum.getNamesMap().get(StringUtils.lowerCase(userCredentials.getUserType().getUserTypeText())));

@@ -16,12 +16,13 @@ public class UserInfoVO {
 	private MultipartFile resume;
 	private UserTypeEnum userType;
 	private List<SkillEnum> skillSet;
-	private Boolean isVerified;
-	public Boolean getIsVerified() {
-		return isVerified;
+	private Boolean isApproved;
+	
+	public Boolean getIsApproved() {
+		return isApproved;
 	}
-	public void setIsVerified(Boolean isVerified) {
-		this.isVerified = isVerified;
+	public void setIsApproved(Boolean isApproved) {
+		this.isApproved = isApproved;
 	}
 	public String getEmail() {
 		return email;
